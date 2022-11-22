@@ -3,6 +3,7 @@ const homeRoute=require("./api/root")
 const path=require("path")
 const User=require("./models/user")
 const mongoose=require('mongoose')
+require("dotenv").config()
 
 mongoose.connect("mongodb+srv://daalivardhan:daali.228005@cluster0.v12h2.mongodb.net/?retryWrites=true&w=majority")
 const app=express()
@@ -40,4 +41,4 @@ app.get("/getusers",async (req,res)=>{
 app.get("/*",(req,res)=>{
     res.status(404).send("Not found")
 })
-app.listen(8000,()=>{console.log("Listening on port 8000 .....")})
+app.listen(process.env.PORT ||  8000,()=>{console.log(`Listening on port ${process.env.PORT ||8000} .....`)})
