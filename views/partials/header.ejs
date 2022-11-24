@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg navigation" >
+    <div class="nav-tems text-bold" >
+        Hi,
+        <%= user.user || 'DaaliVardhan' %> 
+    </div>
+    <div class="nav-tems">
+        <% if (!user.user){ %> 
+            <a href="/auth/login" class="btn btn-link" style="font-weight: 400;font-size:large">Login</a>
+        <% }else{ %> 
+            <a href="/auth/logout" class="btn btn-link" style="font-weight: 400;font-size:large">Logout</a>
+        <% } %> 
+    </div>
+          
+</nav>

@@ -1,43 +1,42 @@
-const express = require("express")
-const homeRoute=require("./api/root")
-const path=require("path")
-const User=require("./models/user")
-const mongoose=require('mongoose')
 require("dotenv").config()
+const express = require("express")
+const mongoose=require('mongoose')
+const database="mongodb://localhost/test"
+const homeRoute=require("./routes/root")
+const authRoute=require("./routes/auth")
+const logger=require("./middleware/logger")
+const cookieParser=require("cookie-parser")
+const verifyUser=require("./middleware/verifyUser")
+const path=require('path')
+const adminRoute=require('./routes/admin')
+const multer=require("multer")
+const upload=require("./contollers/fileuploadController")
 
-mongoose.connect("mongodb+srv://daalivardhan:daali.228005@cluster0.v12h2.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect(database || process.env.DATABASE)
+
+
 const app=express()
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
+app.use(cookieParser())
 app.set("view engine","ejs")
 app.use(express.static('public'))
 
 
-const logger=(req,res,next)=>{
-    console.log(req.method,req.url)
-    next()
-}
+
+
 app.use(logger)
+app.get("/login",(req,res)=>{
+    res.sendFile(path.join(__dirname,"views","website","demo.html"))
+})
+app.post("/login",upload.fields([{name: 'thumbnail', maxCount: 1}, { name: 'poster', maxCount: 1}]), (req,res)=>{
+    console.log(req.file,req.body)
+    res.json({file:req.file,body:req.body})
+})
+app.use("/",homeRoute)
+app.use("/auth",authRoute)
+app.use("/admin",adminRoute)
 
-app.get("/blog-list(.html)?",(req,res)=>{
-    return res.sendFile(path.join(__dirname,'views','website','blog-list.html'))
-})
-
-app.get("/blogs|/blog-post(.html)?",(req,res)=>{
-    return res.sendFile(path.join(__dirname,'views','website','blog-post.html'))
-})
-
-app.get("/about(.html)?",(req,res)=>{
-    return res.sendFile(path.join(__dirname,'views','website','about.html'))
-})
-
-app.get("^/$|/index(.html)?|home",(req,res)=>{
-    return res.sendFile(path.join(__dirname,'views','website','index.html'))
-})
-app.get("/getusers",async (req,res)=>{
-    const users=await User.find();
-    return res.send({users:users})
-})
 app.get("/*",(req,res)=>{
     res.status(404).send("Not found")
 })
