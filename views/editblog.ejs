@@ -1,53 +1,75 @@
-
-
 <section class="blog-list px-3 py-5 p-md-5 mt-5">
-    <div class="container">	
-        <h1>Edit post</h1>
-        
-        <% if (message) { %>
-         <p><%- message?.Error %> </p>
-        <% } %>
-        <p></p>
+  <div class="container">
+    <h1>Edit post</h1>
 
-        <form action="" method="POST" enctype="multipart/form-data" id="form">
-            <div class="form-group">
-                <div class="form-group">
-                    <h4><label class="text-bold" for="">Title</label></h4>
-                    <input required class="form-control" type="text" name="title" id="title" value="<%- blog.title%>">
-                </div>
-                <div class="form-group">
-                    <h4><label class="text-bold" for="">Description</label></h4>
-                    <textarea required class="form-control" name="description" id="description" cols="30" rows="10"><%- blog.description  %></textarea>
-                    
-                </div>
-                <div class="form-group">
-                    <h4><label class="text-bold" for="">Post</label></h4>
-                    <textarea required class="form-control" name="post" id="post" cols="30" rows="30"><%- blog.description  %></textarea>
-                    
-                </div>
-                <div class="form-group">
-                    <h4><label class="text-bold" for="">Thumbnail</label></h4>     
-                    <!-- <input type="checkbox" checked class="form-check">                  -->
-                    <input class="custorm-file-input" type="file"  name="thumbnail" id="thumbnail">
-                    
-                </div>
-                <div class="form-group">
-                    <h4><label class="text-bold" for="">Poster</label></h4>
-                    <!-- <input type="checkbox" checked class="form-check">                     -->
-                    <input class="custorm-file-input" type="file" name="poster" id="poster">
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary"
-                    type="submit">Submit</button>
-                </div>
-            
-            </div>
-            </form>		
-        
-        
-    </div>
+    <% if (message) { %>
+    <p><%- message?.Error %></p>
+    <% } %>
+    <p></p>
 
-    
+    <form action="" method="POST" enctype="multipart/form-data" id="form">
+      <div class="form-group">
+        <div class="form-group">
+          <h4><label class="text-bold" for="">Title</label></h4>
+          <input
+            required
+            class="form-control"
+            type="text"
+            name="title"
+            id="title"
+            value="<%- blog.title%>"
+          />
+        </div>
+        <div class="form-group">
+          <h4><label class="text-bold" for="">Description</label></h4>
+          <textarea
+            required
+            class="form-control"
+            name="description"
+            id="description"
+            cols="30"
+            rows="10"
+          >
+<%- blog.description  %></textarea
+          >
+        </div>
+        <div class="form-group">
+          <h4><label class="text-bold" for="">Post</label></h4>
+          <textarea
+            required
+            class="form-control"
+            name="post"
+            id="post"
+            cols="30"
+            rows="30"
+          >
+<%- blog.post  %></textarea
+          >
+        </div>
+        <div class="form-group">
+          <h4><label class="text-bold" for="">Thumbnail</label></h4>
+          <!-- <input type="checkbox" checked class="form-check">                  -->
+          <input
+            class="custorm-file-input"
+            type="file"
+            name="thumbnail"
+            id="thumbnail"
+          />
+        </div>
+        <div class="form-group">
+          <h4><label class="text-bold" for="">Poster</label></h4>
+          <!-- <input type="checkbox" checked class="form-check">                     -->
+          <input
+            class="custorm-file-input"
+            type="file"
+            name="poster"
+            id="poster"
+          />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </section>
-
-
