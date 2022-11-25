@@ -24,11 +24,11 @@ const handleRegister=async (req,res)=>{
                 {expiresIn:'365d'}
             )
     
-            await User.create({"username":req.body.username,"password":hashedpwd,"token":refreshToken,"isadmin":true})
-            return res.status(200)
+            User.create({"username":req.body.username,"password":hashedpwd,"token":refreshToken,"isadmin":true})
+            return res.sendStatus(200)
         } catch (error) {
             console.log(error)
-            return res.json({"Error":"Error while creating user"})
+            return res.status(500).json({"Error":"Error while creating user"})
         }
     }
     else{

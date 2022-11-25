@@ -12,7 +12,7 @@ const expresslayouts=require("express-ejs-layouts")
 
 
 
-mongoose.connect(database || process.env.DATABASE)
+mongoose.connect(process.env.DATABASE || database)
 
 
 const app=express()

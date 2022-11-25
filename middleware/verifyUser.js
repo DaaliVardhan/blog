@@ -12,7 +12,7 @@ const getCookie=(req,res,next)=>{
         const decoded=jwt.verify(token,process.env.REFRESH_TOKEN_SECRET)
         req.user=decoded.username
         req.isadmin=decoded.isadmin
-        // console.log(req.user,req.isadmin)
+    
         
     } catch (error) {
         console.log(error)        

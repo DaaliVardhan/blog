@@ -19,7 +19,7 @@ const createArticle=async (req,res)=>{
             message:{Error:"Article Already Exists"},
         }
     )
-    console.log(req.files.thumbnail[0].filename,req.files.poster[0].filename)
+    
     try {
         const newblog=await Article.create({ title:req.body.title,description:req.body.description,post:req.body.post,thumbnail:"/assets/images/blog/"+req.files.thumbnail[0].filename,poster:"/assets/images/blog/"+req.files.poster[0].filename})
         return res.status(200).redirect("/"+newblog.slug)
