@@ -8,7 +8,7 @@ const Article=require("../models/article")
 
 
 router.get("/blogs|/blog-list(.html)?",getCookie,async (req,res)=>{
-  const blogs=await Article.find()
+  const blogs=await Article.find().sort({publishedOn:-1})
   return res.render('blogs',{layout:'layouts/base',user:{user:req.user,isadmin:req.isadmin},blogs:blogs})
   
 })

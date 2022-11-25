@@ -33,7 +33,7 @@ const articleSchema=mongoose.Schema({
         type:String,
         
     },
-    comments:{
+    voters:{
         type:Array,
         default:[]
     },

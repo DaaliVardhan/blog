@@ -7,7 +7,7 @@ const authRoute=require("./routes/auth")
 const logger=require("./middleware/logger")
 const cookieParser=require("cookie-parser")
 const adminRoute=require('./routes/admin')
-const articleRoute=require("./routes/articles")
+const likesAPI=require("./routes/likes")
 const expresslayouts=require("express-ejs-layouts")
 
 
@@ -33,7 +33,7 @@ app.use(expresslayouts)
 app.use("/auth",authRoute)
 app.use("/admin",adminRoute)
 app.use("/",homeRoute)
-app.use("/blog",articleRoute)
+app.use("/blogs",likesAPI)
 
 app.get("/*",(req,res)=>{
     res.status(404).send("Not found")

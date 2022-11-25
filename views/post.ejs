@@ -4,7 +4,17 @@
 
 <header class="blog-post-header">
     <h2 class="title mb-2"><%- blog.title %>  </h2>
-    <div class="meta mb-3"><span class="date">Published <%- blog.publishedOn.toLocaleDateString() || '3 months ago' %></span><span class="time">5 min read</span><span class="comment"><a href="#">4 comments</a></span></div>
+    
+    <div class="meta mb-3"><span class="date">Published <%- blog.publishedOn.toLocaleDateString() || '3 months ago' %></span><span class="time">5 min read</span><span class="comment"><i onclick="like(this)" class="fa fa-thumbs-up" ></i></span><span id="likes"><%- blog.votes || 0 %> likes</span></div>
+    <script>
+        function like(e){
+            const vote=document.getElementById("likes")
+            // e.classList.toggle("fa-thumbs-up")
+            const likes=vote.innerText.split(" ")[0]
+            // vote.innerText=`${parseInt(likes)+1}`
+            fetch(`/blogs${window.location.pathname}`,{method:"POST",credentials:'include'}).then((res)=>res.json()).then((data)=>{vote.innerText=`${data.likes} likes`;console.log(data)})
+        }
+    </script>
 </header>
 
 <div class="blog-post-body">
