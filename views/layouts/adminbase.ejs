@@ -32,30 +32,30 @@
 
 			<div id="navigation" class="collapse navbar-collapse flex-column" >
 				<div class="profile-section pt-3 pt-lg-0">
-				   
-				
-					<div class="nav-item text-bold" >
-						Hi,
+                    
+                    <div class="nav-item text-bold" >
+                        Hi,
 						<%= user.user || 'DaaliVardhan' %> 
+                        <hr>
+                        <h1 style="color:#fff">Dashboard</h1>
 					</div>
 					<hr> 
 				</div>
 				
 				<ul class="navbar-nav flex-column text-left">
-					<li class="nav-item active">
+					<li class="nav-item ">
 					    <a class="nav-link" href="/"><i class="fas fa-home fa-fw mr-2"></i>Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-					    <a class="nav-link" href="/"><i class="fas fa-bookmark fa-fw mr-2"></i>All blogs</a>
+					    <a class="nav-link" href="/admin/blogs"><i class="fas fa-book fa-fw mr-2"></i>All blogs</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="/admin/newblog"><i class="fas fa-plus fa-fw mr-2"></i>New blog</a>
 					</li>
 					<li class="nav-item">
 					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
 					</li>
-					<% if (user.isadmin) { %>					 
-						<li class="nav-item">
-							<a class="nav-link" href="/admin"><i class="fas fa-user fa-fw mr-2"></i>Admin</a>
-						</li>
-					<% } %>
+					
 					<% if(!user.user){ %>
 						<li class="nav-item">
 							<a class="nav-link btn btn-link" href="/admin/login"><i class="fas fa-user fa-fw mr-2"></i>LogIn</a>
@@ -98,4 +98,7 @@
 
 </body>
 </html> 
+
+
+
 

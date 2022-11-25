@@ -1,0 +1,19 @@
+<article class="blog-post px-3 py-5 p-md-5">
+    <div class="container">
+
+
+<header class="blog-post-header">
+    <h2 class="title mb-2"><%- blog.title %>  </h2>
+    <div class="meta mb-3"><span class="date">Published <%- blog.publishedOn.toLocaleDateString() || '3 months ago' %></span><span class="time">5 min read</span><span class="comment"><a href="#">4 comments</a></span></div>
+</header>
+
+<div class="blog-post-body">
+    <figure class="blog-banner">
+        <a href="#"><img class="img-fluid" src="<%- blog.poster %>"  alt="image"></a>
+        
+    </figure>
+    <p><%- blog.post %></p>
+</div>
+
+</div>
+</article>

@@ -2,27 +2,37 @@ const express = require("express");
 const path = require("path");
 const router = express.Router();
 const getCookie = require("../middleware/verifyUser")
+const Article=require("../models/article")
 
 
 
 
-router.get("/blog-list(.html)?",getCookie,(req,res)=>{
-  return res.sendFile(path.join(__dirname,'..','views','website','blog-list.html'))
+router.get("/blogs|/blog-list(.html)?",getCookie,async (req,res)=>{
+  const blogs=await Article.find()
+  return res.render('blogs',{layout:'layouts/base',user:{user:req.user,isadmin:req.isadmin},blogs:blogs})
+  
 })
 
-router.get("/blogs|/blog-post(.html)?",getCookie,(req,res)=>{
-  return res.sendFile(path.join(__dirname,'..','views','website','blog-post.html'))
-})
+
 
 router.get("/about(.html)?",getCookie,(req,res)=>{
   return res.sendFile(path.join(__dirname,'..','views','website','about.html'))
 })
 
-router.get("^/$|/index(.html)?|home",getCookie,(req,res)=>{
-  return res.sendFile(path.join(__dirname,'..','views','website','index.html'))
+router.get("/:slug",getCookie,async (req,res)=>{
+    const blog=await Article.findOne({slug:req.params.slug})
+    if(!blog) return res.redirect('/')  
+    return res.render('post',{layout:'layouts/base',user:{user:req.user,isadmin:req.isadmin},blog:blog})
 })
-router.get("/getusers",getCookie,async (req,res)=>{
-  const users=await User.find();
-  return res.send({users:users})
+
+router.get("/blog",getCookie,async (req,res)=>{
+  const blog=await Article.find()
+  return res.render("post",{layout:'layouts/base',user:{user:req.user,isadmin:req.isadmin},blog:blog[0]})
+})
+
+router.get("^/$|/index(.html)?|home",getCookie,async (req,res)=>{
+  const blogs=await Article.find()
+  return res.render('blogs',{layout:"layouts/base",user:{user:req.user,isadmin:req.isadmin},blogs:blogs})
+  
 })
 module.exports = router;

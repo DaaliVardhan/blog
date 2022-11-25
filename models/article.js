@@ -1,4 +1,5 @@
 const mongoose=require("mongoose")
+const slugify=require('slugify')
 
 const articleSchema=mongoose.Schema({
     title:{
@@ -28,6 +29,10 @@ const articleSchema=mongoose.Schema({
         default:"/assets/images/blog/blog-post-thumb-2.jpg"
 
     },
+    slug:{
+        type:String,
+        
+    },
     comments:{
         type:Array,
         default:[]
@@ -39,4 +44,10 @@ const articleSchema=mongoose.Schema({
 
 })
 
+articleSchema.pre("validate", function (next) {
+    if (this.title) {
+      this.slug = slugify(this.title, { lower: true, strict: true });
+    }
+    next();
+  });
 module.exports=mongoose.model("Article",articleSchema,'articles')

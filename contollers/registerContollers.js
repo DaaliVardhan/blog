@@ -3,7 +3,7 @@ const jwt=require("jsonwebtoken")
 const bcrypt=require('bcrypt')
 
 const getRegister=(req,res)=>{
-    return res.render("register")
+    return res.render("register",{layout:false})
 }
 
 const handleRegister=async (req,res)=>{

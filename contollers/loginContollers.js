@@ -3,7 +3,7 @@ const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 
 const getLogin=(req,res)=>{
-    return res.render("login")
+    return res.render("login",{layout:false})
 }
 const handleLogin=async (req,res)=>{
 
@@ -28,7 +28,7 @@ const handleLogin=async (req,res)=>{
         return res.sendStatus(200)
     } catch (error) {
 
-        return res.status(400).redirect("/auth/login")
+        return res.status(400)
     }
 }
 

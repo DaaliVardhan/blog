@@ -1,14 +1,43 @@
-const express=require('express')
-const router=express()
-const path=require('path')
-const verifyUser=require('../middleware/verifyUser')
+const express = require("express");
+const router = express();
 
-router.use(verifyUser)
-router.get("/",(req,res)=>{
-    res.render('admin',{user:{user:req.user,isadmin:req.isadmin},blog:{title:"title",createdAt:new Date(),slug:"new-post"}})
-})
-router.get("/blogs",(req,res)=>{
-    res.render('blogs',{user:{user:req.user,isadmin:req.isadmin}})
-})
+const verifyAdmin = require("../middleware/verifyadmin");
 
-module.exports=router
+const upload = require("../contollers/fileuploadController");
+const { createArticle, editArticle, deleteArticle } = require("../contollers/blogController");
+
+const getCookie=require("../middleware/verifyUser")
+const {  getAdmin,getBlogs,newBlog, editBlog }=require("../contollers/adminController")
+
+
+router.get("^/$",getCookie, verifyAdmin, getAdmin);
+
+router.get("/blogs",getCookie, verifyAdmin, getBlogs);
+
+router.get("/newblog",getCookie, verifyAdmin,newBlog);
+
+
+router.post("/newblog",verifyAdmin, upload.fields([
+                    { name: "thumbnail", maxCount: 1 },
+                    { name: "poster", maxCount: 1 },
+        ]),createArticle,
+);
+
+router.get("/edit/:slug",verifyAdmin,editBlog)
+
+router.post("/edit/:slug",verifyAdmin,upload.fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "poster", maxCount: 1 }]),
+    editArticle)
+
+
+
+router.route("/delete/:slug")
+    .get(deleteArticle)
+    .post(deleteArticle)
+
+
+
+
+module.exports = router;
+
