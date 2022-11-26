@@ -1,5 +1,7 @@
 const mongoose=require("mongoose")
 const slugify=require('slugify')
+const fs=require('fs')
+
 
 const articleSchema=mongoose.Schema({
     title:{
@@ -16,8 +18,8 @@ const articleSchema=mongoose.Schema({
         default:new Date()
     },
     poster:{
-        type:String,
-        default:"/assets/images/blog/blog-post-banner.jpg"
+        type:Buffer,
+        default:fs.readFileSync('public/assets/images/blog/blog-post-banner')
 
     },
     post:{
@@ -25,9 +27,8 @@ const articleSchema=mongoose.Schema({
         require:true
     },
     thumbnail:{
-        type:String,
-        default:"/assets/images/blog/blog-post-thumb-2.jpg"
-
+        type:Buffer,
+        default:fs.readFileSync('public/assets/images/blog/blog-post-thumb-8')
     },
     slug:{
         type:String,

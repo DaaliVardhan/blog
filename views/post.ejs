@@ -19,7 +19,7 @@
 
 <div class="blog-post-body">
     <figure class="blog-banner">
-        <a href="#"><img class="img-fluid" src="<%- blog.poster %>"  alt="image"></a>
+        <a href="#"><img class="img-fluid" src="data:image/image/png;base64,<%=blog.poster.toString('base64')%>"  alt="image"></a>
         
     </figure>
     <p><%- blog.post %></p>

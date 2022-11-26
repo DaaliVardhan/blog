@@ -7,7 +7,7 @@
 
 <div class="item mb-5">
     <div class="media">
-        <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="<%- blog.thumbnail  %> " alt="image">
+        <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="data:image/image/png;base64,<%=blog.thumbnail.toString('base64')%>" alt="image">
         <div class="media-body">
 
             <h3 class="title mb-1"><a href="<%- blog.slug %>"><%- blog.title %></a></h3>

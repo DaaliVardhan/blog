@@ -10,7 +10,7 @@
 
     <div class="item mb-5">
         <div class="media">
-            <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="<%-  blog.thumbnail || "/assets/images/profile.png"    %>" alt="image">
+            <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="data:image/image/png;base64,<%=blog.thumbnail.toString('base64')%>" alt="image">
             <div class="media-body">
                 <h3 class="title mb-1"><a href="<%- blog.slug%>"><%- blog.title %></a></h3>
                 <div class="meta mb-1"><span class="date">Published on <%- blog.publishedOn.toLocaleDateString()%></span><span class="time">5 min read</span><span class="comment"><i  class="fa fa-thumbs-up" ></i></span><span id="likes"><%- blog.votes || 0 %> likes</span></div>

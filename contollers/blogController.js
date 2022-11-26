@@ -1,6 +1,6 @@
 
 const Article=require("../models/article")
-
+const fs=require("fs")
 
 
 const createArticle=async (req,res)=>{
@@ -21,7 +21,17 @@ const createArticle=async (req,res)=>{
     )
     
     try {
-        const newblog=await Article.create({ title:req.body.title,description:req.body.description,post:req.body.post,thumbnail:"/assets/images/blog/"+req.files.thumbnail[0].filename,poster:"/assets/images/blog/"+req.files.poster[0].filename})
+        if(req.files.thumbnail && req.files.poster){
+            const thumbnail=fs.readFileSync(req.files.thumbnail[0].destination+"/"+req.files.thumbnail[0].filename)
+            const poster=fs.readFileSync(req.files.poster[0].destination+"/"+req.files.poster[0].filename)
+            const newblog=await Article.create({ title:req.body.title,description:req.body.description,post:req.body.post,thumbnail:thumbnail,poster:poster})
+            fs.unlink(req.files.thumbnail[0].destination+"/"+req.files.thumbnail[0].filename)
+            fs.unlink(req.files.poster[0].destination+"/"+req.files.poster[0].filename)
+        }
+        else{
+            const newblog=await Article.create({ title:req.body.title,description:req.body.description,post:req.body.post})
+
+        }
         return res.status(200).redirect("/"+newblog.slug)
     } catch (error) {
         return res.status(500).redirect("/")
@@ -46,15 +56,19 @@ const editArticle=async (req,res) =>{
 
     
     if(req.files.thumbnail)
-        blog.thumbnail="/assets/images/blog/"+req.files.thumbnail[0].filename
+        blog.thumbnail=fs.readFileSync(req.files.thumbnail[0].destination+"/"+req.files.thumbnail[0].filename)
     
     if (req.files.poster)
-        blog.poster="/assets/images/blog/"+req.files.poster[0].filename
+        blog.poster=fs.readFileSync(req.files.poster[0].destination+"/"+req.files.poster[0].filename)
     
     blog.title=req.body.title
     blog.description=req.body.description
     blog.post=req.body.post 
     await blog.save()    
+    if(req.files.thumbnail)
+        fs.unlink(req.files.thumbnail[0].destination+"/"+req.files.thumbnail[0].filename)
+    if(req.files.post)
+        fs.unlink(req.files.poster[0].destination+"/"+req.files.poster[0].filename)
     return res.redirect("/"+blog.slug)
         
 }

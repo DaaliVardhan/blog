@@ -12,7 +12,7 @@ const expresslayouts=require("express-ejs-layouts")
 
 
 
-mongoose.connect(process.env.DATABASE || database)
+mongoose.connect(process.env.DATABASE || database).then(()=>console.log("connected ...."))
 
 
 const app=express()
@@ -25,15 +25,13 @@ app.set("view engine","ejs")
 
 app.use(express.static('public'))
 
-
-
-
 app.use(logger)
 app.use(expresslayouts)
 app.use("/auth",authRoute)
 app.use("/admin",adminRoute)
 app.use("/",homeRoute)
 app.use("/blogs",likesAPI)
+
 
 app.get("/*",(req,res)=>{
     res.status(404).send("Not found")
